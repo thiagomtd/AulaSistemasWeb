@@ -17,6 +17,8 @@ def calc():
     gasolina = api() * 5
     calculo = dist / kml
     resultado = calculo * gasolina
+    #teste
+    
     
 
     
