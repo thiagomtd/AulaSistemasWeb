@@ -15,6 +15,8 @@ def index():
         }
 
     conn.request("GET", "/gasPrice/fromCity?city=brazil", headers=headers)
+    #    conn.request("GET", "/gasPrice/fromCity?city=brazil", headers=headers)
+
 
     res = conn.getresponse()
     data = res.read()
