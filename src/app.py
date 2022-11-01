@@ -5,24 +5,8 @@ import json
 app = Flask(__name__)
 
 api_key = "apikey 02RHA8wnnQVsxP30FmWp4F:1Y8mzAE69JWA0DAtX0xJoL"
-@app.route("/")
-def index():
-    
-    return render_template("index.html")
 
-@app.route("calculo")
-def calc():
-    kml = request.form.get("kml") #10 km
-    dist = request.form.get("dist") #20 km 
-    gasolina = api() * 5
-    calculo = dist / kml
-    resultado = calculo * gasolina
-    #teste
-    
-    
 
-    
-    return render_template("index.html", resultado=resultado)
 
 def api():
     conn = http.client.HTTPSConnection("api.collectapi.com")
@@ -40,4 +24,28 @@ def api():
     data = res.read()
     data = json.loads(data)
 
-    return data["gasoline"]
+
+    return data["result"]["gasoline"]
+
+
+
+@app.route("/",methods=["GET"])
+def index():
+    return render_template("index.html")
+
+
+
+@app.route("/calc",methods=["POST"])
+def calc():
+    kml = request.form.get("kml")
+    dist = request.form.get("dist")
+    print(kml,dist)
+
+    gasolina = float(api())* 5
+    calculo = float(dist) / float(kml)
+
+    resultado = calculo * gasolina
+
+    print(resultado)
+
+    return render_template("calc.html",resultado=resultado)
